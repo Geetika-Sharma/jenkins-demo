@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
 
@@ -18,6 +19,13 @@ pipeline {
     }
 
     stages {
+        stage("init"){
+            steps{
+                script{
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage("build"){
             steps{
                 echo "Building demo project"
@@ -25,7 +33,13 @@ pipeline {
                 sh "mvn install" // tools section defined above has made the mvn command available here
             }
         }
-
+        stage("build-groovy"){
+            steps{
+                script{
+                    gv.buildApp
+                }
+            }
+        }
         stage("unitTest"){
             when {
                 expression {
