@@ -12,7 +12,7 @@ pipeline {
     }
 
     parameters {
-//         string(name: 'VERSION', defaultValue: '', description: 'Version to deploy to Production')
+        // string(name: 'VERSION', defaultValue: '', description: 'Version to deploy to Production')
         choice(name: 'VERSION', choices: ['1.0', '2.0'], description: 'Version to deploy to Production')
         booleanParam(name: 'executeTests', defaultValue: true, 'Execute Tests?')
     }
@@ -28,9 +28,7 @@ pipeline {
 
         stage("unitTest"){
             when {
-                expression {
-                    BRANCH_NAME == dev' || BRANCH_NAME == 'feature'
-                }
+                    env.BRANCH_NAME == 'dev'
             }
             steps{
                 echo "Testing demo project"
