@@ -28,7 +28,9 @@ pipeline {
 
         stage("unitTest"){
             when {
-                    env.BRANCH_NAME == 'dev'
+                expression {
+                    BRANCH_NAME == 'dev' || BRANCH_NAME == 'feature'
+                }
             }
             steps{
                 echo "Testing demo project"
